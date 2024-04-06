@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 AVAILABLE_METHODS = ['delete', 'get', 'head', 'patch', 'post', 'put']
 HEADERS = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0'}
 
-class Market:
+class SuperMarket:
     def __init__(self, cookies:dict[str:str]) -> None:
         self.session = Session()
         self.session.cookies = utils.cookiejar_from_dict(cookies)
@@ -24,7 +24,7 @@ class Product:
         self.quantity_unit = quantity_unit
 
 
-def request(market:Market, method:str = 'get', url:str = '') -> BeautifulSoup:
+def request(market:SuperMarket, method:str = 'get', url:str = '') -> BeautifulSoup:
     assert method in AVAILABLE_METHODS, f'Used method `{method}` not in {AVAILABLE_METHODS}'
 
     response = market.session.request(method, url)

@@ -1,17 +1,29 @@
-from .supermarkets import SuperMarket, Product
+from bs4 import BeautifulSoup
+from json import loads
 
-COOKIES = {'datadome': 'y3wBsQjboarO8qlMEYZ62GeCJ_oG_m0lohMRkWpgkmfaVssb5d~~sPaYm4H8zUP4tYqIwlHXIwWbtyyohfvUG0Ml1XZVgWDTrUVCFSvNUJsMN8tBf3Szckk40emoQqRZ'}
-HEADERS = {'x-red-device': 'red_fo_desktop', 'x-red-version': '3'}
+from .address import Address
+from .product import Product
+from .supermarkets import session, SuperMarket, SuperMarkets
+
+INTERMARCHES:SuperMarkets = SuperMarkets('Intermarché')
 
 class InterMarche(SuperMarket):
-    def __init__(self, cookies:dict[str:str] = {}) -> None: super().__init__('a', 'a', cookies)
-
-    def search(self, searched: str = '', page: int = 1, sort:str = 'pertinence', order:str = 'croissant') -> list[Product]:
-        soup = super().search(
-            'https://www.intermarche.com/recherche/{searched}?page={page}&trier={sort}&ordre={order}', searched, page,
-            'prix' if sort == 'price_absolute' else 'prixkg' if sort == 'price_relative' else 'pertinence',
-            'decroissant' if order == 'descendant' else 'croissant'
+    def __init__(self, name: str, address: Address, id:str) -> None:
+        super().__init__(
+            name, address, {'itm_pdv': str({'ref': id, 'name': name.split(' ')[0] + ' ' + address.city, 'city': address.city}).replace("'", '"')}
         )
+
+    def search_products(self, searched:str = '', page:int = 1, sort:str= '', order:str = '') -> list[Product]:
+        res = session.get(
+            'https://www.intermarche.com/recherche/{searched}?page={page}&trier={sort}&ordre={order}'.format(
+                searched=searched, page=page,
+                sort='prix' if sort == 'price_absolute' else 'prixkg' if sort == 'price_relative' else 'pertinence',
+                order='decroissant' if order == 'descendant' else 'croissant'
+            ),
+            cookies=self.cookies
+        )
+        if not res.ok: return []
+        soup = BeautifulSoup(res.content, 'lxml')
 
         products = []
 
@@ -28,3 +40,16 @@ class InterMarche(SuperMarket):
             except: pass
 
         return products
+
+for market in loads(session.get(
+    'https://www.intermarche.com/api/service/pdvs/v4/pdvs/zone?r=10000',
+    headers={'x-red-device': 'red_fo_desktop', 'x-red-version': '3'},
+    cookies={'datadome': 'y3wBsQjboarO8qlMEYZ62GeCJ_oG_m0lohMRkWpgkmfaVssb5d~~sPaYm4H8zUP4tYqIwlHXIwWbtyyohfvUG0Ml1XZVgWDTrUVCFSvNUJsMN8tBf3Szckk40emoQqRZ'}
+).text)['resultats']:
+    add = market['addresses'][0]
+
+    INTERMARCHES.supermarkets_total.append(InterMarche(
+        market['modelLabel'].title(),
+        Address(add['address'], int(add['postCode']), add['townLabel'], **{l:float(add[l]) for l in ['latitude', 'longitude']}),
+        market['entityCode']
+    ))

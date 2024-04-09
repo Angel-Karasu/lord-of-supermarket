@@ -14,7 +14,13 @@ python ./main.py;
 
 ## How to Use
 
+## Compatible supermarkets
+
+- Intermarché
+
 ## To do
+
+- [ ] Add more supermarkets
 
 - [ ] Complete How to Use section
 

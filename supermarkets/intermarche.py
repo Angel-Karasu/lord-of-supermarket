@@ -1,11 +1,14 @@
-from .supermarket import SuperMarket, Product
+from .supermarkets import SuperMarket, Product
+
+COOKIES = {'datadome': 'y3wBsQjboarO8qlMEYZ62GeCJ_oG_m0lohMRkWpgkmfaVssb5d~~sPaYm4H8zUP4tYqIwlHXIwWbtyyohfvUG0Ml1XZVgWDTrUVCFSvNUJsMN8tBf3Szckk40emoQqRZ'}
+HEADERS = {'x-red-device': 'red_fo_desktop', 'x-red-version': '3'}
 
 class InterMarche(SuperMarket):
-    def __init__(self, cookies:dict[str:str] = {}) -> None: super().__init__(cookies)
+    def __init__(self, cookies:dict[str:str] = {}) -> None: super().__init__('a', 'a', cookies)
 
-    def search(self, searched: str = '', page: int = 1, sort:str = 'relevant', order:str = 'ascendant') -> list[Product]:
+    def search(self, searched: str = '', page: int = 1, sort:str = 'pertinence', order:str = 'croissant') -> list[Product]:
         soup = super().search(
-            'get', 'https://www.intermarche.com/recherche/{searched}?page={page}&trier={sort}&ordre={order}', searched, page,
+            'https://www.intermarche.com/recherche/{searched}?page={page}&trier={sort}&ordre={order}', searched, page,
             'prix' if sort == 'price_absolute' else 'prixkg' if sort == 'price_relative' else 'pertinence',
             'decroissant' if order == 'descendant' else 'croissant'
         )

@@ -9,10 +9,8 @@ If you want to use, clone this repository, install all requirements packages and
 git clone https://github.com/Angel-Karasu/lord-of-supermarket.git;
 cd lord-of-supermarket;
 pip install -r requirements.txt;
-python ./main.py;
+flask run;
 ```
-
-## How to Use
 
 ## Compatible supermarkets
 
@@ -21,10 +19,6 @@ python ./main.py;
 ## To do
 
 - [ ] Add more supermarkets
-
-- [ ] Complete How to Use section
-
-- [ ] Make a website
 
 ## License
 

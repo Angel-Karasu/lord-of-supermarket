@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" property="og:description" content="Several supermarkets browser at the same time. One Supermarket to watch them all."/>
+    <link rel="stylesheet" href="https://angel-karasu.github.io/karoace-theme/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Lord of supermarket</title>
+  </head>
+  <body>
+    <header><h1>Lord of supermarket</h1></header>
+    <main>{% block main %}{% endblock %}</main>
+    <footer><a href="https://github.com/Angel-Karasu/lord-of-supermarket" target="_blank">Github page</a></footer>
+  </body>
+</html>

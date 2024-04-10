@@ -1,5 +1,11 @@
-from supermarkets.intermarche import INTERMARCHES
+#!/bin/python
+from flask import Flask, render_template
 
-products = INTERMARCHES.get_supermarkets_by_postal_code(38000)[0].search_products('lait')
+app = Flask(__name__)
 
-print(list(map(lambda product: vars(product), products)))
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run()

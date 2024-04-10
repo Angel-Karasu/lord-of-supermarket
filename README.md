@@ -4,13 +4,16 @@ This is a simple project to browse several supermarkets at the same time. One Su
 
 ## Installation
 
-If you want to use, clone this repository, install all requirements packages and run it using python command
+Clone this repository and install all requirements packages
 ```shell
 git clone https://github.com/Angel-Karasu/lord-of-supermarket.git;
 cd lord-of-supermarket;
 pip install -r requirements.txt;
-flask run;
 ```
+
+## How to use
+
+1. Run the python file : `main.py`
 
 ## Compatible supermarkets
 

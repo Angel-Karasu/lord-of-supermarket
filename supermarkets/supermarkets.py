@@ -16,8 +16,9 @@ class SuperMarket:
     def search_products(self, searched:str, page:int, sort:str, order:str) -> list[Product]: return []
     
 class SuperMarkets:
-    def __init__(self, brand:str) -> None:
+    def __init__(self, brand:str, base_url:str) -> None:
         self.brand = brand
+        self.base_url = base_url
 
         self.supermarkets_selected:list[SuperMarket] = []
         self.supermarkets_total:list[SuperMarket] = []

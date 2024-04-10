@@ -5,7 +5,7 @@ from .address import Address
 from .product import Product
 from .supermarkets import session, SuperMarket, SuperMarkets
 
-INTERMARCHES = SuperMarkets('Intermarché')
+INTERMARCHES = SuperMarkets('Intermarché', 'intermarche.com')
 
 class InterMarche(SuperMarket):
     def __init__(self, name: str, address: Address, id:str) -> None:

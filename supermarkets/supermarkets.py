@@ -25,8 +25,8 @@ class SuperMarkets:
     def get_supermarkets_by_postal_code(self, postal_code:int) -> list[SuperMarket]:
         return [market for market in self.supermarkets_total if str(postal_code) in str(market.address.postal_code)]
     
-    def append_supermarket(self, supermarket:SuperMarket) -> None:
+    def append_supermarket_selected(self, supermarket:SuperMarket) -> None:
         self.supermarkets_selected.append(supermarket)
 
-    def remove_supermarket(self, supermarket:SuperMarket) -> None:
+    def remove_supermarket_selected(self, supermarket:SuperMarket) -> None:
         self.supermarkets_selected.remove(supermarket)

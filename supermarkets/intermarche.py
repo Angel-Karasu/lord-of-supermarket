@@ -5,12 +5,12 @@ from .address import Address
 from .product import Product
 from .supermarkets import session, SuperMarket, SuperMarkets
 
-INTERMARCHES:SuperMarkets = SuperMarkets('Intermarché')
+INTERMARCHES = SuperMarkets('Intermarché')
 
 class InterMarche(SuperMarket):
     def __init__(self, name: str, address: Address, id:str) -> None:
         super().__init__(
-            name, address, {'itm_pdv': str({'ref': id, 'name': name.split(' ')[0] + ' ' + address.city, 'city': address.city}).replace("'", '"')}
+            name, address, {'itm_pdv': str({'ref': id, 'name': f'{name.split()[0]} {address.city}', 'city': address.city}).replace("'", '"')}
         )
 
     def search_products(self, searched:str = '', page:int = 1, sort:str= '', order:str = '') -> list[Product]:
@@ -22,7 +22,6 @@ class InterMarche(SuperMarket):
             ),
             cookies=self.cookies
         )
-        if not res.ok: return []
         soup = BeautifulSoup(res.content, 'lxml')
 
         products = []
@@ -41,11 +40,11 @@ class InterMarche(SuperMarket):
 
         return products
 
-for market in loads(session.get(
-    'https://www.intermarche.com/api/service/pdvs/v4/pdvs/zone?r=10000',
-    headers={'x-red-device': 'red_fo_desktop', 'x-red-version': '3'},
-    cookies={'datadome': 'y3wBsQjboarO8qlMEYZ62GeCJ_oG_m0lohMRkWpgkmfaVssb5d~~sPaYm4H8zUP4tYqIwlHXIwWbtyyohfvUG0Ml1XZVgWDTrUVCFSvNUJsMN8tBf3Szckk40emoQqRZ'}
-).text)['resultats']:
+for market in loads(session.get('https://www.intermarche.com/api/service/pdvs/v4/pdvs/zone?r=10000',
+        headers={'x-red-device': 'red_fo_desktop', 'x-red-version': '3'},
+        cookies={'datadome': 'y3wBsQjboarO8qlMEYZ62GeCJ_oG_m0lohMRkWpgkmfaVssb5d~~sPaYm4H8zUP4tYqIwlHXIwWbtyyohfvUG0Ml1XZVgWDTrUVCFSvNUJsMN8tBf3Szckk40emoQqRZ'}
+    ).text)['resultats']:
+
     add = market['addresses'][0]
 
     INTERMARCHES.supermarkets_total.append(InterMarche(

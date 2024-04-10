@@ -14,6 +14,7 @@ pip install -r requirements.txt;
 ## How to use
 
 1. Run the python file : `main.py`
+2. Go on `localhost:5000`
 
 ## Compatible supermarkets
 

@@ -24,7 +24,7 @@ python ./main.py;
 
 - [ ] Complete How to Use section
 
-- [ ] Make a GUI
+- [ ] Make a website
 
 ## License
 

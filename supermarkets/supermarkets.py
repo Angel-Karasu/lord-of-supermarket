@@ -13,7 +13,7 @@ class SuperMarket:
 
         self.cookies = cookies
 
-    def search_products(self, searched:str, page:int, sort:str, order:str) -> list[Product]: return []
+    def search_products(self, search:str, page:int, sort:str, order:str) -> list[Product]: return []
     
 class SuperMarkets:
     def __init__(self, brand:str, base_url:str) -> None:

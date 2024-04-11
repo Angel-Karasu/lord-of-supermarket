@@ -13,10 +13,10 @@ class InterMarche(SuperMarket):
             name, address, {'itm_pdv': str({'ref': id, 'name': f'{name.split()[0]} {address.city}', 'city': address.city}).replace("'", '"')}
         )
 
-    def search_products(self, searched:str = '', page:int = 1, sort:str= '', order:str = '') -> list[Product]:
+    def search_products(self, search:str = '', page:int = 1, sort:str= '', order:str = '') -> list[Product]:
         res = session.get(
             'https://www.intermarche.com/recherche/{searched}?page={page}&trier={sort}&ordre={order}'.format(
-                searched=searched, page=page,
+                searched=search, page=page,
                 sort='prix' if sort == 'price_absolute' else 'prixkg' if sort == 'price_relative' else 'pertinence',
                 order='decroissant' if order == 'descendant' else 'croissant'
             ),

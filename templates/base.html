@@ -12,11 +12,11 @@
   </head>
   <body>
     <header>
-      <h1>Lord of supermarket</h1>
-      <div>
-        <input type="search" id="search" placeholder="Search product">
+      <a href="{{ url_for('index') }}"><h1>Lord of supermarket</h1></a>
+      <div id="search">
+        <input type="text" id="search-input" placeholder="Search product...">
         <select id="sort">
-          <option value="pertinence">Pertinence</option>
+          <option value="relevance">Relevance</option>
           <option value="price_relative">Price relative</option>
           <option value="price_absolute">Price absolute</option>
         </select>
@@ -24,7 +24,7 @@
           <option value="ascendant">Ascendant</option>
           <option value="descendant">Descendant</option>
         </select>
-        <button>Search</button>
+        <button id="search-button">Search</button>
       </div>
     </header>
     <main>{% block main %}{% endblock %}</main>

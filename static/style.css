@@ -9,6 +9,7 @@
 body { min-width: 350px; }
 
 header {
+  display: flex;
   height: 40px;
   min-width: 260px;
   margin: 10px 0;

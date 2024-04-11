@@ -6,10 +6,27 @@
     <meta name="description" property="og:description" content="Several supermarkets browser at the same time. One Supermarket to watch them all."/>
     <link rel="stylesheet" href="https://angel-karasu.github.io/karoace-theme/styles.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='search.js') }}"></script>
+    <noscript>JavaScript is required for this website. Please allow JavaScript and refresh the page.</noscript>
     <title>Lord of supermarket</title>
   </head>
   <body>
-    <header><h1>Lord of supermarket</h1></header>
+    <header>
+      <h1>Lord of supermarket</h1>
+      <div>
+        <input type="search" id="search" placeholder="Search product">
+        <select id="sort">
+          <option value="pertinence">Pertinence</option>
+          <option value="price_relative">Price relative</option>
+          <option value="price_absolute">Price absolute</option>
+        </select>
+        <select id="order">
+          <option value="ascendant">Ascendant</option>
+          <option value="descendant">Descendant</option>
+        </select>
+        <button>Search</button>
+      </div>
+    </header>
     <main>{% block main %}{% endblock %}</main>
     <footer><a href="https://github.com/Angel-Karasu/lord-of-supermarket" target="_blank">Github page</a></footer>
   </body>

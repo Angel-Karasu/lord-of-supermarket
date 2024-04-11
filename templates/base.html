@@ -6,13 +6,14 @@
     <meta name="description" property="og:description" content="Several supermarkets browser at the same time. One Supermarket to watch them all."/>
     <link rel="stylesheet" href="https://angel-karasu.github.io/karoace-theme/styles.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="{{ url_for('static', filename='search.js') }}"></script>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
     <noscript>JavaScript is required for this website. Please allow JavaScript and refresh the page.</noscript>
     <title>Lord of supermarket</title>
+    {% block head %}{% endblock %}
   </head>
   <body>
     <header>
-      <a href="{{ url_for('index') }}"><h1>Lord of supermarket</h1></a>
+      <a href="{{ url_for('index_page') }}"><h1>Lord of supermarket</h1></a>
       <div id="search">
         <input type="text" id="search-input" placeholder="Search product...">
         <select id="sort">

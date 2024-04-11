@@ -1,7 +1,7 @@
 from requests import Session
 
-from .address import Address
-from .product import Product
+from .utils.address import Address
+from .utils.product import Product
 
 session = Session()
 session.headers['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0'
@@ -20,14 +20,7 @@ class SuperMarkets:
         self.brand = brand
         self.base_url = base_url
 
-        self.supermarkets_selected:list[SuperMarket] = []
-        self.supermarkets_total:list[SuperMarket] = []
+        self.supermarkets:list[SuperMarket] = []
 
     def get_supermarkets_by_postal_code(self, postal_code:int) -> list[SuperMarket]:
-        return [market for market in self.supermarkets_total if str(postal_code) in str(market.address.postal_code)]
-    
-    def append_supermarket_selected(self, supermarket:SuperMarket) -> None:
-        self.supermarkets_selected.append(supermarket)
-
-    def remove_supermarket_selected(self, supermarket:SuperMarket) -> None:
-        self.supermarkets_selected.remove(supermarket)
+        return [market for market in self.supermarkets if str(postal_code) in str(market.address.postal_code)]

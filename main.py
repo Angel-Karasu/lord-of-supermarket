@@ -7,11 +7,11 @@ PORT = 5500
 app = Flask(__name__)
 
 @app.route('/')
-def index():
+def index_page():
     return render_template('index.html')
 
 @app.route('/search/')
-def search():
+def search_page():
     return render_template('index.html')
 
 if __name__ == '__main__':

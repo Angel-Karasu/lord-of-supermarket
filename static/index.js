@@ -1,7 +1,7 @@
 let search_input, sort, order;
 
 function search() {
-    window.location = `/search/?search=${search_input.value}&page=1&sort=${sort.value}&order=${order.value}`;
+    window.location = `/search/?search=${search_input.value}&sort=${sort.value}&order=${order.value}`;
 }
 
 window.onload = () => {

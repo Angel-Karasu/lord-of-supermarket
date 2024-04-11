@@ -1,7 +1,12 @@
 let search_input, sort, order;
 
+const xml = new XMLHttpRequest();
+xml.onload = () => console.log(xml.response, JSON.parse(xml.response));
+
 function search() {
-    window.location = `/search/?search=${search_input.value}&sort=${sort.value}&order=${order.value}`;
+    window.location.hash = `search=${search_input.value}&sort=${sort.value}&order=${order.value}`;
+    xml.open('GET', `/search/${search_input.value}/1/${sort.value}/${order.value}/`);
+    xml.send();
 }
 
 window.onload = () => {

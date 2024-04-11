@@ -3,7 +3,7 @@ from json import loads
 
 from ..utils.address import Address
 from ..utils.product import Product
-from ..supermarkets import session, SuperMarket, SuperMarkets
+from ..utils.supermarkets import session, SuperMarket, SuperMarkets
 
 INTERMARCHES = SuperMarkets('Intermarché', 'www.intermarche.com')
 

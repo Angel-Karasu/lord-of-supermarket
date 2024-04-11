@@ -1,7 +1,7 @@
 from requests import Session
 
-from .utils.address import Address
-from .utils.product import Product
+from .address import Address
+from .product import Product
 
 session = Session()
 session.headers['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0'

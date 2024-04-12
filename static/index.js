@@ -7,7 +7,7 @@ function search() {
     fetch('/search/', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({search: search_input.value, page: 1, sort: sort.value, order: order.value})
+        body: JSON.stringify({list_index_supermarket: [166, 2028], search: search_input.value, page: 1, sort: sort.value, order: order.value})
     }).then(response => response.json()).then(data => console.log(data));
 }
 

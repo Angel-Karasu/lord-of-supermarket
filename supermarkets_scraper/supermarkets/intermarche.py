@@ -1,16 +1,18 @@
 from bs4 import BeautifulSoup
 from json import loads
 
-from ..utils.address import Address
-from ..utils.product import Product
-from ..utils.supermarkets import session, SuperMarket, SuperMarkets
+from ..classes.address import Address
+from ..classes.product import Product
+from ..classes.supermarket import session, SuperMarket, SuperMarkets
+
+INTERMARCHE_BASE_URL = 'www.intermarche.com'
 
 INTERMARCHES = SuperMarkets('Intermarché', 'www.intermarche.com')
 
 class InterMarche(SuperMarket):
     def __init__(self, name: str, address: Address, id:str) -> None:
         super().__init__(
-            name, address, {'itm_pdv': str({'ref': id, 'name': f'{name.split()[1]} {address.city}', 'city': address.city}).replace("'", '"')}
+            name, address, INTERMARCHE_BASE_URL, {'itm_pdv': str({'ref': id, 'name': f'{name.split()[1]} {address.city}', 'city': address.city}).replace("'", '"')}
         )
 
     def search_products(self, search:str = '', page:int = 1, sort:str= '', order:str = '') -> list[Product]:
@@ -18,7 +20,7 @@ class InterMarche(SuperMarket):
         order = 'decroissant' if order == 'descendant' else 'croissant'
 
         res = session.get(
-            f'https://{INTERMARCHES.base_url}/recherche/{search}?page={page}&trier={sort}&ordre={order}',
+            f'https://{INTERMARCHE_BASE_URL}/recherche/{search}?page={page}&trier={sort}&ordre={order}',
             cookies=self.cookies
         )
         soup = BeautifulSoup(res.content, 'lxml')

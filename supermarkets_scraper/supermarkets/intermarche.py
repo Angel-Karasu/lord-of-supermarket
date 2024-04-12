@@ -14,7 +14,7 @@ class InterMarche(SuperMarket):
         )
 
     def search_products(self, search:str = '', page:int = 1, sort:str= '', order:str = '') -> list[Product]:
-        sort = 'prix' if sort == 'price_absolute' else 'prixkg' if sort == 'price_relative' else 'pertinence',
+        sort = 'prix' if sort == 'price_absolute' else 'prixkg' if sort == 'price_relative' else 'pertinence'
         order = 'decroissant' if order == 'descendant' else 'croissant'
 
         res = session.get(

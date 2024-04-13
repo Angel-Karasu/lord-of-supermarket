@@ -12,18 +12,11 @@
   </head>
   <body>
     <header>
-      <a href="/"><h1>Lord of supermarket</h1></a>
+      <h1>Lord of supermarket</h1>
       <div id="search">
         <input type="text" id="search-input" placeholder="Search product...">
-        <select id="sort">
-          <option value="relevance">Relevance</option>
-          <option value="price_relative">Price relative</option>
-          <option value="price_absolute">Price absolute</option>
-        </select>
-        <select id="order">
-          <option value="ascendant">Ascendant</option>
-          <option value="descendant">Descendant</option>
-        </select>
+        <select id="sortby"></select>
+        <label id="descending-order">Descending order <input type="checkbox" id="descending-order-checkbox"></label>
         <button id="search-button">Search</button>
       </div>
     </header>

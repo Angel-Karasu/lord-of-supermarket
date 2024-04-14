@@ -2,6 +2,10 @@
 
 This is a simple project to browse several supermarkets at the same time. One Supermarket to watch them all.
 
+## To do
+
+- [ ] The website
+
 ## License
 
 This project is licensed under the [GNU GPLv3](https://choosealicense.com/licenses/gpl-3.0/).

@@ -10,6 +10,7 @@ body { min-width: 350px; }
 
 header {
   display: flex;
+  justify-content: space-around;
   height: 40px;
   min-width: 260px;
   margin: 10px 0;
@@ -30,3 +31,5 @@ footer {
   border-top: 1px solid var(--black_alt);
   padding: 10px;
 }
+
+#error { color: var(--red_alt); }

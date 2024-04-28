@@ -33,3 +33,27 @@ footer {
 }
 
 #error { color: var(--red_alt); }
+
+#products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.product {
+  width: 200px;
+  margin: 5px;
+  text-align: left;
+  text-decoration: none;
+}
+
+.product img { width: 100%; }
+
+.product div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.description {
+  font-size: smaller;
+}

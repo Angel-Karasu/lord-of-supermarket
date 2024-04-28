@@ -2,6 +2,10 @@
 
 This is a simple project to browse several supermarkets at the same time. One Supermarket to watch them all.
 
+## How it works
+
+It uses the [Supermarket scraper API](https://github.com/Angel-Karasu/supermarket-scraper-api).
+
 ## To do
 
 - [ ] The website

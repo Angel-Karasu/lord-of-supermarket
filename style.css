@@ -41,17 +41,35 @@ footer {
 }
 
 .product {
-  width: 200px;
+  position: relative;
+  width: clamp(165px, 20%, 200px);
   margin: 5px;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 10px 10px 5px 5px;
   text-align: left;
   text-decoration: none;
+  filter: brightness(90%);
+}
+.product:hover {
+  border-color: var(--blue_alt);
+  filter: brightness(1);
 }
 
-.product img { width: 100%; }
+.product img {
+  width: 100%;
+  border-radius: 5px;
+}
 
 .product div {
   display: flex;
   justify-content: space-between;
+}
+
+.price {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 10px);
 }
 
 .description {

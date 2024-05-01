@@ -16,7 +16,7 @@ function search_products() {
     fetch(`${supermarket_scraper_api_url}/search_product?${search}${supermarkets_id}`).then(res => res.json()).then(products => {
         products_html.innerHTML = '';
         products.forEach(([id, product]) => {
-            let prod = product_template.cloneNode(true);
+            const prod = product_template.cloneNode(true);
             
             prod.href = product.product_url;
             prod.querySelector('img').src = product.image_url;
@@ -62,7 +62,7 @@ window.onload =  () => {
             option.innerHTML = method.charAt(0).toUpperCase() + method.substr(1).replace('_', ' ');
             sortby.appendChild(option);
         });
-        
+
         if (window.location.hash) {
             let params = (new URL(window.location.href.replace('#', '?'))).searchParams;
             search_products_input.value = params.get('search');

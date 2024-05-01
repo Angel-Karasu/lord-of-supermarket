@@ -41,11 +41,10 @@ footer {
 }
 
 .product {
-  position: relative;
   min-height: 200px;
   width: clamp(165px, 20%, 200px);
   margin: 5px;
-  padding: 5px;
+  padding: 5px; padding-bottom: 20px;
   border: 1px solid;
   border-radius: 10px 10px 5px 5px;
   text-align: left;
@@ -74,5 +73,6 @@ footer {
 }
 
 .description {
+  white-space: pre-line;
   font-size: smaller;
 }

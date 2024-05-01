@@ -1,27 +1,19 @@
-const supermarket_scraper_api_url = 'http://localhost:5500';
-let API_activated = true;
+document.cookie = JSON.stringify({'supermarkets_id':[0, 12, 126]});
+const cookies = JSON.parse(document.cookie);
 
-const supermarkets = fetch(`${supermarket_scraper_api_url}/get_supermarkets`).then(res => {
-    if (!res.ok) throw new Error('API not activated');
-    return res.json();
-}).catch(err => {
-    alert(err);
-    API_activated = false;
-    return err;
-});
+const supermarket_scraper_api_url = cookies['supermarket_scraper_api_url'] || 'http://localhost:5500';
 
 let search_products_html, search_products_input, sortby, descending_order,
     products_html, product_template;
-let page = 1;
 
-document.cookie = [0, 12, 126];
-let list_supermarket_id = document.cookie.split(',').reduce((acc, id) => acc+'&list_supermarket_id='+id, '');
+let page = 1;
+let supermarkets_id = cookies['supermarkets_id'].reduce((acc, id) => acc+'&supermarkets_id='+id, '');
 
 function search_products() {
-    let search = `search=${search_products_input.value}&page=${page}&sortby=${sortby.value}&descending_order=${descending_order.checked}`;
+    const search = `search=${search_products_input.value}&page=${page}&sortby=${sortby.value}&descending_order=${descending_order.checked}`;
     window.location.hash = search;
 
-    fetch(`${supermarket_scraper_api_url}/search_product?${search}${list_supermarket_id}`).then(res => res.json()).then(products => {
+    fetch(`${supermarket_scraper_api_url}/search_product?${search}${supermarkets_id}`).then(res => res.json()).then(products => {
         products_html.innerHTML = '';
         products.forEach(([id, product]) => {
             let prod = product_template.cloneNode(true);
@@ -44,28 +36,18 @@ function search_products() {
     });
 }
 
-window.onload = async () => {
-    search_products_html = document.querySelector('#search-products');
-    await supermarkets;
-    console.log(await supermarkets);
+function set_cookie(key, value) {
+    cookies[key] = value;
+    document.cookie = JSON.stringify(cookies);
+}
 
-    if (!API_activated) {
-        document.querySelector('header').innerHTML = document.querySelector('header h1').outerHTML;
-        document.querySelector('main').innerHTML = `<span id="error">${await supermarkets}</span>`;
-        return;
-    }
+window.onload =  () => {
+    search_products_html = document.querySelector('#search-products');
 
     search_products_input = search_products_html.querySelector('input');
     sortby = search_products_html.querySelector('#sortby');
     descending_order = search_products_html.querySelector('input[type="checkbox"]');
     products_html = document.querySelector('#products');
-
-    await fetch(`${supermarket_scraper_api_url}/get_sortby_methods`).then(res => res.json()).then(sortby_methods => sortby_methods.forEach(method => {
-        let option = document.createElement('option');
-        option.value = method;
-        option.innerHTML = method.charAt(0).toUpperCase() + method.substr(1).replace('_', ' ');
-        sortby.appendChild(option);
-    }));
     
     product_template = document.querySelector('.product').cloneNode(true);
     product_template.style.display = '';
@@ -73,12 +55,33 @@ window.onload = async () => {
     search_products_input.onsearch = search_products;
     search_products_html.querySelector('button').onclick = search_products;
 
+    fetch(`${supermarket_scraper_api_url}/get_sortby_methods`).then(res => res.json()).then(sortby_methods => {
+        sortby_methods.forEach(method => {
+            let option = document.createElement('option');
+            option.value = method;
+            option.innerHTML = method.charAt(0).toUpperCase() + method.substr(1).replace('_', ' ');
+            sortby.appendChild(option);
+        });
+        
+        if (window.location.hash) {
+            let params = (new URL(window.location.href.replace('#', '?'))).searchParams;
+            search_products_input.value = params.get('search');
+            sortby.value = params.get('sortby');
+            descending_order.checked = params.get('descending_order') == 'true';
+            search_products();
+        }
+    }).catch(() => {
+        alert('API not found');
+        document.querySelector('header').innerHTML = document.querySelector('header h1').outerHTML;
+        document.querySelector('main').innerHTML = `<span id="error">API not found</span>`;
 
-    if (window.location.hash) {
-        let params = (new URL(window.location.href.replace('#', '?'))).searchParams;
-        search_products_input.value = params.get('search');
-        sortby.value = params.get('sortby');
-        descending_order.checked = params.get('descending_order') == 'true';
-        search_products();
-    }
+        let input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = 'Set the API url';
+        input.onchange = () => {
+            set_cookie('supermarket_scraper_api_url', input.value);
+            window.location.reload();
+        };
+        document.querySelector('main').appendChild(input);
+    });
 }

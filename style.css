@@ -42,6 +42,7 @@ footer {
 
 .product {
   position: relative;
+  min-height: 200px;
   width: clamp(165px, 20%, 200px);
   margin: 5px;
   padding: 5px;

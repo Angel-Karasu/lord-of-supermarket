@@ -4,7 +4,7 @@ This is a simple project to browse several supermarkets at the same time. One Su
 
 ## How to use
 
-Install and run the [Supermarket scraper API](https://github.com/Angel-Karasu/supermarket-scraper-api).
+Install and run the [Supermarket scraper API](https://codeberg.org/Angel-Karasu/supermarket-scraper-api).
 
 ## To do
 
